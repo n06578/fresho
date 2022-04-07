@@ -1,0 +1,154 @@
+<?php	
+include "db.php";
+	session_start();
+	
+?>
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<title>freshO(식자재)</title>
+	<link rel="shortcut icon" type="image/x-icon" href="http://fresho.dothome.co.kr/main(image)/logo(finish).png" />
+	<link rel ="stylesheet" type="text/css" href="css/bag.css">
+	<meta property="og:locale" content="ko" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="freshO(식자재)" />
+	<meta property="og:url" content="http://fresho.dothome.co.kr/" />
+	<meta property="og:site_name" content="Fresho" />
+	<meta property="og:image" src="main(image)/logo(finish).png" />
+	<link href="css/aamypage.css" rel="stylesheet" type="text/css" >
+	<link href="css/slide.css" rel="stylesheet" type="text/css" >
+	
+
+</head>
+
+
+<script>
+
+function change(selectAll)  {
+		const checkboxes 
+			= document.getElementsByName('animal');
+  
+		checkboxes.forEach((checkbox) => {
+		checkbox.checked = selectAll.checked;
+		})
+	}
+    </script>
+
+<body class="cafe page">
+	
+		<header class="header">
+
+					
+	
+					
+	
+			<div class="header-box">
+				<div class="header-left">
+					<div class="logo">
+						<a href="http://fresho.dothome.co.kr/aaindex.html">
+							<img class="logo-static" src="main(image)/logo(finish).png" alt="freshO"/>
+						</a>
+						
+					</div>
+				</div>
+			</div>
+							
+							
+			<div class="nav-box">
+						<ul class="menu-box">
+							<li><a href="http://fresho.dothome.co.kr/aalist.html"/>
+								<img class="menu" src="main(image)/fresh.png" alt="fresh"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/aacook.html"/>
+								<img class="menu"  src="main(image)/cook.png" alt="cook"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/aatest.html"/>
+								<img class="menu" src="main(image)/cafe.png" alt="cafe"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/aamypage.html"/>
+								<img class="menu" id="check" src="main(image)/mypage.png" alt="mypage"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/aaQNA.php"/> 
+							<!-- 예시 -->
+								<img class="menu" src="main(image)/QnA.png" alt="QnA"/></a></li>
+							<li><a class="btn" href="http://fresho.dothome.co.kr/basket.php" target="self"> 
+								<img class="login-btn" src="main(image)/cart_ok.png" alt="cart"/></a></li></a> 
+						</ul>
+					</div>
+			
+											
+			</div>
+		</header>
+		
+		<div class = "first-box">	
+		
+		
+		<div class= "info-box">
+		<?php
+			$username = $_SESSION['phone'];
+			$userpw = $_SESSION['pwd'];
+		
+ 			
+			echo "<br> <strong>고객 번호: </strong> $username <br>";
+            
+		?>
+
+        <form action="passchange.php" method="POST">
+            <p><input type="password" name="cu_pass" placeholder="현재 비밀번호" required></p>
+            <p><input type="password" name="npass" placeholder="새 비밀번호" required></p>
+            <p><input type="password" name="npassch" placeholder="새 비밀번호 확인" required></p>
+            <p><input type="submit" value="비밀번호 변경"></p>
+            
+          </form>
+    </div>			
+		<div id="content">
+				
+					<h2>구매내역</h2>
+					
+					 <table class="list-table">
+				      <thead>
+				          <tr>
+				              <th width="350">상품정보</th>
+				              <th width="120">상품금액</th>
+							  <th width="120">수량</th>
+							  <th width="120">배송상태</th>
+
+				           </tr>
+				        </thead>
+				         <?php 
+				        	$sql3 = mq("select * from buy where phone='".$username."' order by no asc");
+							while($bask = $sql3->fetch_array()){
+						?>
+				        <tbody>
+				        <tr>
+				          <td width="300">
+						  
+				          	<div class="bak_item">
+							<div class="proimg"><img src="<?php echo $bask['img'];?>" alt="propic" title="propic" /></div>
+							<div class="proname"><?php echo $bask['name'];?></div>
+							</div>
+				          </td>
+				          <td width="150"><?php echo $bask['price'];?></td>
+				          <td width="150"><?php echo $bask['count'];?></td>
+				       	  <td width="150"><?php echo $bask['state'];?></td>
+
+					   
+				        </tr>
+				      </tbody>
+				  <?php } ?>
+				    </table>
+					
+					<button onclick='getCheckboxValue()'>확인</button>
+
+					<div id='result'></div>
+				
+	</div>
+							
+				
+		</div>
+			
+
+
+	</body>
+</html>
+	
+	

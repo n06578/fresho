@@ -1,0 +1,162 @@
+<?php	
+	session_start();
+	
+?>
+<?php include "db.php"; ?>
+ <?php
+
+	error_reporting(E_ALL);
+
+	ini_set("display_errors",1);
+
+	
+	#ini_set("include_path='.:/usr/share/pear:/usr/share/php'",1);
+	require_once ( 'php/config.php');
+	require_once ( 'php/mysql.lib.php');
+	#require_once '../php/config.php';
+
+	#require_once '../php/mysql.lib.php';
+
+	$link = getNewsConn();
+
+?>
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<title>freshO(식자재)</title>
+	<link rel="shortcut icon" type="image/x-icon" href="http://fresho.dothome.co.kr/main(image)/logo(finish).png" />
+	<meta property="og:locale" content="ko" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="freshO(식자재)" />
+	<meta property="og:url" content="http://fresho.dothome.co.kr/" />
+	<meta property="og:site_name" content="Fresho" />
+	<meta property="og:image" src="main(image)/logo(finish).png" />
+	<link href="css/cookch.css" rel="stylesheet" type="text/css" >
+	<link href="css/slide.css" rel="stylesheet" type="text/css" >
+	
+
+</head>
+
+<body class="cook page">
+	
+
+<header class="header">
+
+
+						<div class="header-box">
+							<div class="header-left">
+								<div class="logo">
+									<a href="http://fresho.dothome.co.kr/aaindex.html">
+										<img class="logo-static" src="main(image)/logo(finish).png" alt="freshO"/>
+									</a>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="nav-box">
+							<ul class="menu-box">
+								<li>
+									<a href="http://fresho.dothome.co.kr/aalist.html">
+										<img class="menu"   src="main(image)/fresh.png" alt="fresh"/>
+									</a>
+								</li>
+								<li>
+									<a href="http://fresho.dothome.co.kr/aacook.html">
+										<img class="menu"  id="check"  src="main(image)/cook.png" alt="cook"/>
+									</a>
+								</li>
+								<li>
+									<a href="http://fresho.dothome.co.kr/aatest.html">
+										<img class="menu" src="main(image)/cafe.png" alt="cafe"/>
+									</a>
+								</li>
+								<li>
+									<a href="http://fresho.dothome.co.kr/aamypage.html">
+										<img class="menu" src="main(image)/mypage.png" alt="mypage"/>
+									</a>
+								</li>
+								<li><a href="http://fresho.dothome.co.kr/aaQNA.php"/> 
+										<img class="menu" src="main(image)/QnA.png" alt="QnA"/>
+									</a>
+								</li>
+								<li><a class="btn" href="http://fresho.dothome.co.kr/basket.php" target="self"> 
+								<img class="login-btn" src="main(image)/cart_ok.png" alt="cart"/></a></li></a> 
+							</ul>
+						</div>
+
+
+
+					</header>
+	<?php
+		$bno = $_GET['no']; /* bno함수에 no값을 받아와 넣음*/
+		
+		// $ex = $bno+100;
+		$sql = mq("select * from cookmain where no='".$bno."' AND no ='".$bno."' order by no asc" ); /* 받아온 idx값을 선택 */
+		$cooksmenu = $sql->fetch_array();
+		
+	?>
+	
+	
+	<div class = "first-box">
+					
+						
+				<div class ="list">
+				<!-- 양파 -->
+					<div class ="list1-img">
+						<a href="http://fresho.dothome.co.kr/cookbuy.html?no=<?php echo $cooklist['no'];?>">
+						<img class="food"  src="<?php echo $cooksmenu['img'];?>"  alt="food"></a>
+					</div>
+					
+								
+				</div>
+				
+				<div class="list-2">
+				
+					<div class = "info1">
+						<p class="text1">제품명 : <?php echo $cooksmenu['name'];?></p>
+						
+			
+					
+					<p class="text1">조리법
+					</br>
+					 <?php echo $cooksmenu['uri'];?></p>
+
+				</div>
+				</div>
+				</br>
+				
+	</div>
+	<div class ="and">
+	
+	</div>
+	<div class = "second-box">
+		<?php
+		
+			$bno1 = $_GET['comment']; /* bno함수에 no값을 받아와 넣음*/
+
+			$sql2 = mq("select * from List where comment LIKE '%".$bno1."%' order by no asc" ); /* 받아온 idx값을 선택 */
+			while($cooksinfo2 = $sql2 ->fetch_array()){
+			?>
+						
+				<div class ="list1">
+					<a href="aalistinfo.php?no=<?php echo $cooksinfo2['no'];?>">
+					<div class ="list-img">
+						<img class="food"  src="<?php echo $cooksinfo2['img'];?>" alt="food">
+					</div>
+									
+					<div class = "info">
+						<p class="text1">제품명 : <?php echo $cooksinfo2['name'];?></p>
+						<p class="text2">원산지 : <?php echo $cooksinfo2['from'];?></p>
+						<p class="text3">가격 : <?php echo $cooksinfo2['price'];?></p>
+					</div>
+								
+				</div>
+
+				
+
+		<?php } ?>	
+	</div>
+</html>

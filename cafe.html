@@ -1,0 +1,111 @@
+<?php	
+	session_start();
+	
+?>
+
+
+<?php include "db.php"; ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>fresho-cafe</title>
+<link rel="stylesheet" type="text/css" href="css/test.css" />
+<link href="css/cafe.css" rel="stylesheet" type="text/css" >
+</head>
+		
+	
+	<body>
+	
+<header class="header">
+
+					<!-- <div class="join">   -->
+					<!-- <img id="modal_open_btn" class="join-btn" src="main(image)/join.png" alt=""></button>  -->
+					<!-- </div> -->
+						<div id="modal">
+				   
+					     
+					</div>
+					
+					
+			<div class="header-box">
+				<div class="header-left">
+					<div class="logo">
+						<a href="http://fresho.dothome.co.kr">
+							<img class="logo-static" src="main(image)/logo(finish).png" alt="freshO"/>
+						</a>
+						
+					</div>
+				</div>
+			</div>
+			
+			
+				
+					<div class="nav-box">
+						<ul class="menu-box">
+							<li><a href="http://fresho.dothome.co.kr/list.html"/>
+								<img class="menu" src="main(image)/fresh.png" alt="fresh"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/cook.html"/>
+								<img class="menu" src="main(image)/cook.png" alt="cook"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/cafe.html"/>
+								<img class="menu" id="check"  src="main(image)/cafe.png" alt="cafe"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/mypage.html"/>
+								<img class="menu" src="main(image)/mypage.png" alt="mypage"/></a></li>
+							<li><a href="http://fresho.dothome.co.kr/QnA.html"/>
+								<img class="menu" src="main(image)/QnA.png" alt="QnA"/></a></li>
+							<li><a class="btn" href="http://fresho.dothome.co.kr/login.html" target="self"> 
+							<img class="login-btn" src="main(image)/login.png" alt="login"/></a></li></a> 
+						</ul>
+					</div>
+			
+			
+			
+
+	
+	
+			
+			
+
+	</header>
+		
+	<div class = "first-box">	
+	<div id="bg1"></div>
+			<div id="menu">
+				<!-- <div id="logo"><a href="http://fresho.dothome.co.kr/aaindex.html"><img src="main(image)/logo(finish).png" title="shop_icon"/></a></div> -->
+					<form>
+						<div id="search_ser">
+							<ul>
+								<!-- <li><input type="text" placeholder="상품검색" size="50" id="ser" /></li> -->
+								<!-- <li><button id="se_br"><img src="/search.png"></button></li> -->
+							</ul>
+						</div>
+					</form>
+				</div>
+				<h3 id="tit1">제품리스트</h3>
+					<?php 
+		
+					$username = $_SESSION['phone'];
+					
+					?>
+					<div id="shop_list">
+						<?php
+							$sql = mq("select * from Cafe order by no asc");
+							while($shoplist = $sql->fetch_array()){
+						?>
+			
+					</div>
+					
+				
+				
+						<div class="item">
+							<div class="pro_img"><a href="cafeinfo.php?no=<?php echo $shoplist['no'];?>"><img src="<?php echo $shoplist['img'];?>" alt="propic" title="propic" /></a></div>
+							<div class="pro_nt"><a href="cafeinfo.php?no=<?php echo $shoplist['no'];?>"><?php echo $shoplist['name'];?></a></div>
+							<div class="pro_price"><?php echo $shoplist['price'];?></div>
+						</div>
+					<?php } ?>
+		</div><!---shop_list end--->
+	</div>	
+	
+		<footer></footer>
+</body>
+</html>       
